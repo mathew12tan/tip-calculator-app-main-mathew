@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Tip calculator app</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <div class="logo"><img src="./images/logo.svg" alt="logo"></div>
+
+    <div class="calc">
+
+      <div class="input-container">
+        <div class="bill">
+          <h6>Bill</h6>
+          <div class="bill-input">
+            <img src="./images/icon-dollar.svg" alt="icon-dollar">
+            <input type="number" name="bill-amount" id="bill-amount" placeholder="0">
+          </div>
+        </div>
+
+        <div class="tip">
+          <h6>Select Tip %</h6>
+          <div class="tip-selector">
+            <input type="radio" name="tip" id="p5" value="0.05">
+            <label for="p5">5%</label>
+            <input type="radio" name="tip" id="p10" value="0.1">
+            <label for="p10">10%</label>
+            <input type="radio" name="tip" id="p15" value="0.15">
+            <label for="p15">15%</label>
+            <input type="radio" name="tip" id="p25" value="0.25">
+            <label for="p25">25%</label>
+            <input type="radio" name="tip" id="p50" value="0.5">
+            <label for="p50">50%</label>
+            <div class="custom-input">
+              <input type="number" name="tip-custom-input" id="tip-custom-input" placeholder="Custom">
+            </div>
+          </div>
+        </div>
+
+        <div class="people">
+          <div class="people-text">
+            <h6>Number of People</h6>
+            <h6 class="people-error-msg">Can't be zero</h6>
+          </div>
+          <div class="people-input">
+            <img src="./images/icon-person.svg" alt="icon-person">
+            <input type="number" name="people-amount" id="people-amount" placeholder="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="output">
+        <div class="output-row">
+          <div class="output-text">
+            <h6>Tip Amount</h6>
+            <p>/ person</p>
+          </div>
+          <h2 class="tip-amount">$0.00</h2>
+        </div>
+        <div class="output-row">
+          <div class="output-text">
+            <h6>Total</h6>
+            <p>/ person</p>
+          </div>
+          <h2 class="total">$0.00</h2>
+        </div>
+        <button class="reset-btn" type="reset" disabled>Reset</button>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Coded by <a href="https://github.com/mathew12tan?tab=repositories">Mathew</a>
+    </div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+
+</html>
