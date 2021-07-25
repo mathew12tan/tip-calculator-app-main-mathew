@@ -35,15 +35,19 @@ function calcTip(input) {
   let tipPerPerson = (billAmount * tip) / numPeople;
   let totalPerPerson = (billAmount * (tip + 1)) / numPeople;
 
-  numPeople === 0
-    ? people.classList.add("error-msg")
-    : people.classList.remove("error-msg");
-
   isNaN(tipPerPerson) || isNaN(totalPerPerson) || numPeople === 0
     ? ((tipAmount.textContent = `$0.00`), (total.textContent = `$0.00`))
     : ((tipAmount.textContent = `$${tipPerPerson.toFixed(2)}`),
       (total.textContent = `$${totalPerPerson.toFixed(2)}`));
+}
 
+function errorMsg() {
+  numPeople === 0
+    ? people.classList.add("error-msg")
+    : people.classList.remove("error-msg");
+}
+
+function activateResetBtn(){
   resetBtn.classList.add("reset");
   resetBtn.disabled = false;
 }
@@ -57,6 +61,8 @@ function resetCalc() {
 
 form.addEventListener("input", function (e) {
   calcTip(e.target);
+  errorMsg();
+  activateResetBtn();
 });
 
 form.addEventListener("reset", function () {
