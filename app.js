@@ -1,3 +1,5 @@
+const form = document.querySelector("form");
+
 const billInput = document.querySelector("#bill-amount");
 const radios = document.querySelectorAll("input[type=radio]");
 const tipCustomInput = document.querySelector("#tip-custom-input");
@@ -13,64 +15,51 @@ let billAmount;
 let tip;
 let numPeople;
 
-function calcTip() {
+function calcTip(input) {
   billAmount = parseFloat(billInput.value);
   numPeople = parseInt(peopleInput.value);
+
+  switch (input.name) {
+    case "tip":
+      tipCustomInput.value = "";
+      tip = parseFloat(input.value);
+      break;
+    case "tip-custom-input":
+      radios.forEach((radio) => {
+        radio.checked = false;
+      });
+      tip = parseFloat(input.value) / 100;
+      break;
+  }
 
   let tipPerPerson = (billAmount * tip) / numPeople;
   let totalPerPerson = (billAmount * (tip + 1)) / numPeople;
 
   numPeople === 0
-    ? (people.classList.add("error-msg"),(tipPerPerson = 0),(totalPerPerson = 0))
-    : ((numPeople = numPeople), people.classList.remove("error-msg"));
+    ? people.classList.add("error-msg")
+    : people.classList.remove("error-msg");
 
-  isNaN(tipPerPerson) || isNaN(totalPerPerson)
+  isNaN(tipPerPerson) || isNaN(totalPerPerson) || numPeople === 0
     ? ((tipAmount.textContent = `$0.00`), (total.textContent = `$0.00`))
     : ((tipAmount.textContent = `$${tipPerPerson.toFixed(2)}`),
       (total.textContent = `$${totalPerPerson.toFixed(2)}`));
-}
 
-function reset() {
   resetBtn.classList.add("reset");
   resetBtn.disabled = false;
-  resetBtn.addEventListener("click", function () {
-    resetBtn.classList.remove("reset");
-    resetBtn.disabled = true;
-    billInput.value = "";
-    radios.forEach((radio) => {
-      radio.checked = false;
-    });
-    tipCustomInput.value = "";
-    peopleInput.value = "";
-    tipAmount.textContent = `$0.00`;
-    total.textContent = `$0.00`;
-  });
 }
 
-billInput.addEventListener("input", function () {
-  calcTip();
-  reset();
+function resetCalc() {
+  resetBtn.classList.remove("reset");
+  resetBtn.disabled = true;
+  tipAmount.textContent = `$0.00`;
+  total.textContent = `$0.00`;
+}
+
+form.addEventListener("input", function (e) {
+  calcTip(e.target);
 });
 
-radios.forEach((radio) => {
-  radio.addEventListener("click", function () {
-    tip = parseFloat(radio.value);
-    tipCustomInput.value = "";
-    calcTip();
-    reset();
-  });
-});
-
-tipCustomInput.addEventListener("input", function () {
-  tip = parseFloat(tipCustomInput.value) / 100;
-  radios.forEach((radio) => {
-    radio.checked = false;
-  });
-  calcTip();
-  reset();
-});
-
-peopleInput.addEventListener("input", function () {
-  calcTip();
-  reset();
+form.addEventListener("reset", function () {
+  form.reset();
+  resetCalc();
 });
